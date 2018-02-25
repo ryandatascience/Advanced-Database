@@ -1,0 +1,13 @@
+Yu Liang Advanced Database Project 3
+
+Modify the Buffer replacement policy with Least Recently Used (LRU) 
+
+
+Buffer replacement strategy
+---------------------------
+In the freelist.c file includes a list of buffers that the system can use for replacement. The buffers are labled using a linklist, where each buffere has a int value to be their buffer ID. One pointer will point to the first buffer of the linklist while the other pointer will point to the tail of the list. 
+
+In Buf_init.c, we set both of the pointers to the first buffer of the list. After review the code, we found the StrategyFreeBuffer function can free a buffer and then add it to the list and the StrategyGetBuffer function will point to the least recently used buffer.
+
+In LRU, the system will check the linklist of the buffer to see if there is available buffer to use. If there is, the system will use the buffer and put the data in the head buffer of the queue. When the data need to read is already in the queue, the data will be moved to the head buffer, and the rest data will move back one to the tail. So the most recently used data is always in the head buffer. When there is no empty buffer available, the data will replace the tail buffer which is the least recently used.
+
